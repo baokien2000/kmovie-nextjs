@@ -1,26 +1,26 @@
 import axios from "axios";
-import { Imovie, ImovieList } from "../interface/movie";
+import { Imovie, ImovieList, MovieItem } from "../interface/movie";
 
-export const getMovieList = async (
-    page: number,
-    callback: (data: ImovieList) => void,
-    loading? : React.Dispatch<boolean>
-) => {
-    if (loading) loading(true)
+// export const getMovieList = async (
+//     page: number,
+//     callback: (data: ImovieList) => void,
+//     loading? : React.Dispatch<boolean>
+// ) => {
+//     if (loading) loading(true)
     
-    const url = "https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=" + page
-    try {
-        const response = await axios({
-            method: 'get',
-            url: url,
-        });
-        callback(response.data)
-    } catch (error) {
-        console.log(error)
-    } 
-    if (loading) loading(false)
+//     const url = "https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=" + page
+//     try {
+//         const response = await axios({
+//             method: 'get',
+//             url: url,
+//         });
+//         callback(response.data)
+//     } catch (error) {
+//         console.log(error)
+//     } 
+//     if (loading) loading(false)
 
-}
+// }
 
 export const getMovie = async (
     slug: string,
@@ -45,22 +45,55 @@ export const getMovie = async (
 }
 
 
-export const getKMovie = async(
-    callback: (data: any) => void,
-    loading? : React.Dispatch<boolean>
+export const getKMovie = async (
+    page: number,
+    pageSize: number,
+    callback: (data: ImovieList) => void,
+    loading?: React.Dispatch<boolean>
 ) => {
     if (loading) loading(true)
-    
-    const url = "http://localhost:5000/movies"
+    const payload = {
+        page: page,
+        pageSize: pageSize,
+    }
+    const url = "https://kmovie-api.vercel.app/movies"
 
     try {
         const response = await axios({
             method: 'get',
             url: url,
+            params: payload,
         });
-        callback(response)
+        callback(response.data)
     } catch (error) {
         console.log(error)
+    } 
+    if (loading) loading(false)
+
+}
+
+
+export const Search = async (
+    value: string,
+    callback: (data: MovieItem[]) => void,
+    loading?: React.Dispatch<boolean>
+) => {
+    if (loading) loading(true)
+    const payload = {
+        value: value,
+    }
+    const url = "https://kmovie-api.vercel.app/movies/Search"
+
+    try {
+        const response = await axios({
+            method: 'get',
+            url: url,
+            params: payload,
+        });
+        callback(response.data)
+    } catch (error) {
+        console.log(error)
+        callback([])
     } 
     if (loading) loading(false)
 

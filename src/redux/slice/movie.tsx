@@ -1,16 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Imovie } from "../../repositories/interface/movie";
 
+export interface IMovieSlice {
+    movie: Imovie,
+    status: string,
+    showSearch: boolean,
+}
 
-const testSlice = createSlice({
-    name: 'test',
+const movieSlice = createSlice({
+    name: 'movie',
     initialState: {
-        index: 0,
+        movie: {},
         status: 'idle',
+        showSearch: false
     },
     reducers: {
-        setIndex: (state, action) => {
-            state.index += 1 ;
+        setShowSearch: (state, action) => {
+            state.showSearch = action.payload ;
         },
 
     },
@@ -25,7 +32,7 @@ const testSlice = createSlice({
     // },
 
 })
-export default testSlice;
+export default movieSlice;
 
 
 

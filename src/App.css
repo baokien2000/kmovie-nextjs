@@ -1,7 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Scrollbar */
+ /* width */
+ ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #585858; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ffce4f; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffca44; 
+  }
 
+
+.EpisodeList::-webkit-scrollbar-track {
+    background: transparent; 
+    margin: 0 10px ;
+}
+/* Title Home */
 .Home_Title::after{
     border: 20px solid transparent;
     border-left-color: #000;
@@ -10,20 +36,151 @@
     left: 100%;
     top: 0;
 }
-.ant-input-affix-wrapper{
+
+/* Search Home */
+.SearchInput{
     background-color: #000;
     box-shadow: none !important;
     border-color: #404040;
     height: 36px;
     border-radius: 0;
+    color: #a7a7a7 ;
 }
-.ant-input-affix-wrapper:hover{
+.SearchInput::placeholder {
+    color: #a7a7a7 ;
+}
+.SearchInput:hover{
     border-color: #404040 !important;
 }
-.ant-input-affix-wrapper input{
+.SearchInput input{
     background-color: #000;
     color: #a7a7a7;
 }
-.ant-input-affix-wrapper input::placeholder {
+.SearchInput input::placeholder {
     color: #a7a7a7;
+}
+
+/* Carousel Home */
+/* .swiper{ */
+    /* height: 280px; */
+/* } 
+.swiper-pagination{
+    bottom: 15px !important
+}
+.swiper-pagination-bullet{
+    background-color: #cac9c9 !important;
+    border-radius: 0 !important;
+    height: 6px !important;
+    width: 50px !important;
+    transform: scale(1) !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active{
+    background-color: #ffce4f !important;
+} */
+.swiper-scrollbar-horizontal{
+    margin: 10px 0 !important;
+    position: relative !important;
+    width: 100% !important;
+    left: 0% !important;
+    height: 5px !important;
+}
+.swiper-scrollbar-drag{
+    background: #ffce4f !important;
+    height: 5px !important;
+}
+/* Pagination */
+.ant-pagination {
+    display: flex !important;
+}
+.ant-pagination-item{
+    border: none !important;
+    background-color: transparent !important;
+    margin: 0 !important;
+}
+.ant-pagination-item a{
+    background-color: #585858;
+    color: #f3dede !important;
+}
+.ant-pagination-item:hover a,.ant-pagination-next:hover,.ant-pagination-prev:hover{
+    background-color: #000 !important;
+}
+.ant-pagination-item-active a{
+    background-color: #ffce4f !important;
+    color: #000 !important;
+}
+.ant-pagination-item-active:hover a{
+    background-color: #ffce4f !important;
+    color: #000 !important;
+}
+.ant-pagination-next,.ant-pagination-prev,.FastJumb{
+    background-color: #585858 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    color: #f3dede !important;
+    padding: 0px 15px !important;
+}
+.ant-pagination-options-quick-jumper{
+    color: #ffce4f !important;
+}
+.ant-pagination-options-quick-jumper input{
+    height: 30px !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important ;
+
+}
+.FastJumb{
+    background-color: #ffce4f !important;
+    cursor: pointer;
+    color: #000 !important;
+}
+.PaginationSendIcon{
+    width: 50px;
+    background-color:#ffce4f !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+}
+.PaginationInput{
+    border:  none !important;
+}
+/* .ant-pagination .ant-pagination-options .ant-select-selector{
+    display: none;
+} */
+
+
+/* Button Movie detail */
+.MovieBtn,.MovieWatchBtn{
+    display: flex;
+    /* background-color: red; */
+    align-items: center;
+    border: none;
+    justify-content: center;
+    /* font-size: 16px; */
+    /* line-height: 16px; */
+    font-weight: bold;
+    height: 40px;
+}
+.MovieBtn:hover{
+    opacity: 80%;
+    color: #ccc !important;
+
+}
+.MovieWatchBtn:hover{
+    opacity: 80%;
+    color: #000 !important;
+
+}
+
+
+/* ANTD Spin */
+.ant-spin-dot-item{
+    background-color: #000 !important;
+}
+.gray-dot .ant-spin-dot-item{
+    background-color: #2d2d2d !important;
 }
