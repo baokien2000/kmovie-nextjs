@@ -6,3 +6,4 @@ interface IReducer {
 }
 
 export const getShowSearch = (state: IReducer) => state.movies.showSearch;
+export const getShowCategory = (state: IReducer) => state.movies.showCategory;

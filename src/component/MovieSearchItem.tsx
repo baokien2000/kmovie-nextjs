@@ -12,9 +12,6 @@ interface Prop {
 const MovieSearchItem = (props: Prop) => {
     const { movie,setSearchTerm } = props;
 
-    
-    const [loading, setLoading] = useState<boolean>(false);
-    const [info, setInfo] = useState<Imovie>();
     const dispatch = useDispatch()
     const navigate = useNavigate()
     // useEffect(() => {
@@ -36,9 +33,10 @@ const MovieSearchItem = (props: Prop) => {
         <div className="sm:w-1/2 w-full flex border-b-[1px] border-[#3e3e3e] py-[10px] cursor-pointer" onClick={handleClick}>
             <img src={"https://img.ophim8.cc/uploads/movies/"+ movie.thumb_url} alt="Thumbnail"  className="w-[50px] h-[50px] " />
             <div className="flex flex-1 flex-col ml-[10px] text-[#fff]">
-                <span className="font-medium">{movie.name}</span>
+                <span className="font-medium leading-[16px]">{movie.name}</span>
                 {/* <span className="opacity-70 text-[12px]">{info && renderEpisode(info?.movie.episode_current,info?.movie.episode_total)}</span> */}
                 <span className="opacity-70 text-[12px]">{movie.origin_name}</span>
+                <span className="opacity-70 text-[12px]">{renderEpisode(movie.episode_current,movie.episode_total)}</span>
             </div>
         </div>
     );

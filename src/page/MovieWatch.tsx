@@ -33,13 +33,12 @@ const MovieWatch = () => {
                 setLoading
             );
     }, []);
-    info &&console.log(info.episodes[0].server_data.filter(item => item.slug.toString() === episode));
+
     useEffect(() => {
         if (info) {
             setMovieLink(info.episodes[0].server_data.find(item => item.slug.toString() === episode)?.link_embed)
         }       
     },[episode])
-    console.log("info",movieLink);
 
 
     return (
@@ -65,8 +64,8 @@ const MovieWatch = () => {
                     <div className="EpisodeList pr-[10px]  overflow-auto items-start flex flex-wrap mt-[10px] max-h-[300px]">
                         {info?.episodes[0].server_data.map((ep,index) => {
                             return <a
-                                href={"/phim/" + params.slug + "/tap-" + ep.slug}
-                                key={ep.slug + index}
+                            href={"/phim/" + params.slug + "/tap-" + ep.slug + (ep.slug.toString() === "kep" ? "-"+ep.filename : "" )}
+                            key={ep.slug + index}
                             className={(ep.slug.toString() === episode ? "bg-[#000]" : "bg-[#333232]") +" hover:bg-[#ffce4f] hover:text-[#000]  px-[10px] py-[5px] text-center sm:w-[50px] w-1/5 bg-[#333232] border-[1px] border-[#4e4e4e]"}
                         >
                              {ep.slug.toString() === "full" ? "full" : index + 1}   

@@ -41,7 +41,7 @@ const Movie = () => {
     const renderMovieCategory = (category: ICategory_Country[]) => {
         // const categoryList = []
         const categoryList = category.map(item => {
-            return <div key={item.id} className="py-[5px] px-[10px] rounded-[6px] cursor-pointer bg-[#313131]">{item.name}</div>
+            return <Link to={"/the-loai/" + item.slug} key={item.id} className="py-[5px] px-[10px] rounded-[6px] cursor-pointer bg-[#313131]">{item.name}</Link>
         })
         return categoryList
     }

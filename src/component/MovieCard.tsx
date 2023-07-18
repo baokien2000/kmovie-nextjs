@@ -7,11 +7,12 @@ interface Prop {
     className?: string;
     ImagePath?: string;
 }
-export const renderEpisode = (current: string , total: string) => {
+export const renderEpisode = (current: string, total: string) => {
     if (["Full", "Trailer"].includes(current || "")) {
         return current
     } else {
-        if (["Hoàn Tất", "Hoàn tất", "hoàn tất"].some(item => item === "Hoàn Tất")) {
+       
+        if (["Hoàn Tất", "Hoàn tất", "hoàn tất"].some(item => item === current.slice(0,8))) {
             return current
             .replaceAll("Hoàn Tất", "")
             .replaceAll("Hoàn tất", "")
@@ -23,19 +24,20 @@ export const renderEpisode = (current: string , total: string) => {
             .replaceAll("Tập", "")
             .replaceAll("tập", "")
             .replaceAll("tâp", "")
+            .replaceAll("Đang cập nhật","??")
         }
     }
 }
 const MovieCard = (props: Prop) => {
     const { movie, className, ImagePath } = props;
     const [loading,setLoading] = useState<boolean>(false)
-    const [info, setInfo] = useState<Imovie>();
+    // const [info, setInfo] = useState<Imovie>();
     const navigate = useNavigate()
-    useEffect(() => {
-        getMovie(movie.slug, (data) => {
-            setInfo(data);
-        },setLoading);
-    }, [movie]);
+    // useEffect(() => {
+    //     getMovie(movie.slug, (data) => {
+    //         setInfo(data);
+    //     },setLoading);
+    // }, [movie]);
   
     return (
         <div
@@ -52,7 +54,7 @@ const MovieCard = (props: Prop) => {
             <p className="truncate px-[3p] py-[5px] text-sm text-center text-[#cc8d4c] font-bold">{movie.name}</p>
             <div className="absolute top-[15px]  left-[15px] px-[12px]  border-[3px] border-double bg-[#383838] border-[#5a5a5a]">
                 <span className="text-[#cac9c9] font-bold text-sm">
-                    {info && renderEpisode(info?.movie.episode_current,info?.movie.episode_total)}
+                    {renderEpisode(movie.episode_current,movie.episode_total)}
                 </span>
             </div>
         </div> 

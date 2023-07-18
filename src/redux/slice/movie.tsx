@@ -6,6 +6,7 @@ export interface IMovieSlice {
     movie: Imovie,
     status: string,
     showSearch: boolean,
+    showCategory: boolean,
 }
 
 const movieSlice = createSlice({
@@ -13,12 +14,17 @@ const movieSlice = createSlice({
     initialState: {
         movie: {},
         status: 'idle',
-        showSearch: false
+        showSearch: false,
+        showCategory: false,
+
     },
     reducers: {
         setShowSearch: (state, action) => {
             state.showSearch = action.payload ;
         },
+        setShowCategory: (state, action) => {
+            state.showCategory = action.payload;
+        }
 
     },
     // extraReducers: builder => {

@@ -1,13 +1,16 @@
 export interface MovieItem {
-    modified: {
+    modified?: {
         time: Date;
     };
     _id: string;
     name: string;
     slug: string;
-    origin_name: string;
+    origin_name?: string;
     thumb_url: string;
     poster_url: string;
+    category: ICategory_Country[],
+    episode_current: string,
+    episode_total: string,
     year: number;
 }
 export interface ImovieList {
