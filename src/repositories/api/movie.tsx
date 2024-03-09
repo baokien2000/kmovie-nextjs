@@ -48,108 +48,95 @@ export const getCategoryMovie = async (
     pageSize: number,
     category: string,
     callback: (data: ImovieList) => void,
-    loading?: React.Dispatch<boolean>,
+    loading?: React.Dispatch<boolean>
 ) => {
-    if (loading) loading(true)
+    if (loading) loading(true);
     const payload = {
         page: page,
         pageSize: pageSize,
         category: category,
-    }
-    const url = "http://localhost:5000/movies/Category"
+    };
+    const url = "https://kmovie-api.vercel.app/movies/Category";
 
     try {
         const response = await axios({
-            method: 'get',
+            method: "get",
             url: url,
             params: payload,
         });
-        callback(response.data)
+        callback(response.data);
     } catch (error) {
-        console.log(error)
-    } 
-    if (loading) loading(false)
-
-}
+        console.log(error);
+    }
+    if (loading) loading(false);
+};
 
 export const getKMovie = async (
     page: number,
     pageSize: number,
     search: string,
     callback: (data: ImovieList) => void,
-    loading?: React.Dispatch<boolean>,
+    loading?: React.Dispatch<boolean>
 ) => {
-    if (loading) loading(true)
+    if (loading) loading(true);
     const payload = {
         page: page,
         pageSize: pageSize,
         search: search,
-    }
-    const url = "http://localhost:5000/movies"
+    };
+    const url = "https://kmovie-api.vercel.app/movies";
 
     try {
         const response = await axios({
-            method: 'get',
+            method: "get",
             url: url,
             params: payload,
         });
-        callback(response.data)
+        callback(response.data);
     } catch (error) {
-        console.log(error)
-    } 
-    if (loading) loading(false)
+        console.log(error);
+    }
+    if (loading) loading(false);
+};
 
-}
-
-
-export const Search = async (
-    value: string,
-    callback: (data: MovieItem[]) => void,
-    loading?: React.Dispatch<boolean>
-) => {
-    if (loading) loading(true)
+export const Search = async (value: string, callback: (data: MovieItem[]) => void, loading?: React.Dispatch<boolean>) => {
+    if (loading) loading(true);
     const payload = {
         value: value,
-    }
+    };
     // const url = "https://kmovie-api.vercel.app/movies/Search"
-    const url = "http://localhost:5000/movies/Search"
+    const url = "https://kmovie-api.vercel.app/movies/Search";
 
     try {
         const response = await axios({
-            method: 'get',
+            method: "get",
             url: url,
             params: payload,
         });
-        callback(response.data)
+        callback(response.data);
     } catch (error) {
-        console.log(error)
-        callback([])
-    } 
-    if (loading) loading(false)
+        console.log(error);
+        callback([]);
+    }
+    if (loading) loading(false);
+};
 
-}
-
-export const UpdateMoviesAPI = async (
-    movies: MovieItem,
-    callback: (data: MovieItem[]) => void,
-    loading?: React.Dispatch<boolean>
-) => {
-    if (loading) loading(true)
+export const UpdateMoviesAPI = async (movies: MovieItem, callback: (data: MovieItem[]) => void, loading?: React.Dispatch<boolean>) => {
+    if (loading) loading(true);
 
     // const url = "https://kmovie-api.vercel.app/movies/Search"
-    const url = "http://localhost:5000/movies/Update"
+    const url = "https://kmovie-api.vercel.app/movies/Update";
 
     try {
         const response = await axios({
-            method: 'post',
+            method: "post",
             url: url,
             data: movies,
         });
-        callback(response.data)
+        callback(response.data);
     } catch (error) {
-        console.log(error)
-        callback([])
-    } 
-    if (loading) loading(false)
-
-}
+        console.log(error);
+        callback([]);
+    }
+    if (loading) loading(false);
+};
