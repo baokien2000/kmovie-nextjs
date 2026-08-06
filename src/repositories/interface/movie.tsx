@@ -8,10 +8,11 @@ export interface MovieItem {
     origin_name?: string;
     thumb_url: string;
     poster_url: string;
-    category: ICategory_Country[],
-    episode_current: string,
-    episode_total: string,
+    category: ICategory_Country[];
+    episode_current: string;
+    episode_total: string;
     year: number;
+    updatedAt: Date | number;
 }
 export interface ImovieList {
     status: boolean;

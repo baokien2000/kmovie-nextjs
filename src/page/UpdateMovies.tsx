@@ -1,69 +1,143 @@
-import React, { useEffect, useState } from "react";
-import { UpdateMoviesAPI, getKMovie, getMovie } from "../repositories/api/movie";
+import React, { useEffect, useMemo, useState } from "react";
+import { AddMovie, UpdateBlurImageAPI, UpdateMoviesAPI, getKMovie, getMovie, getMoviePerPage } from "../repositories/api/movie";
 import { ImovieList } from "../repositories/interface/movie";
+import { useParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const UpdateMovies = () => {
-    const [page, setPage] = useState<number>(parseInt("200"));
-    const [movies, setMovies] = useState<ImovieList>();
+  let [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState<number>(parseInt(searchParams.get("page") || "176"));
+  const [processPage, setProcess] = useState<number>(0);
+  const [success, setSuccess] = useState<number>(0);
 
-    // useEffect(() => {
-    //     getKMovie(page, 24, "", (data) => {
-    //         if (data) {
-    //             // setMovies(data)
-    //             data.items.forEach(item => {
-    //                 getMovie(
-    //                     item.slug,
-    //                     (movie) => {
-    //                         const payload = {
-    //                             ...item,
-    //                             category: movie.movie.category,
-    //                             episode_current: movie.movie.episode_current,
-    //                             episode_total: movie.movie.episode_total
-    //                         }
-    //                         UpdateMoviesAPI(payload, (res) => {
-    //                             console.count("success !");
-    //                         })
-    //                     }
-    //                 );
-                    
-    //             })
-    //             if (page < 948) {
-    //                 setPage(pre => pre + 1)
-    //             }
-    //         }
-    //     })
+  const [errorMovies, setErrorMovies] = useState<string[]>([]);
 
-    //     // modified: { time: "2023-07-05T16:04:54.000Z" },
-    //     // name: "Cầm Tù",
-    //     // origin_name: "Esaret",
-    //     // poster_url: "cam-tu-poster.jpg",
-    //     // slug: "cam-tu",
-    //     // thumb_url: "cam-tu-thumb.jpg",
-    //     // year: 2022,
-    //     // _id: "6404b7820fc1635bd467951c",
+  // useEffect(() => {
 
-    //     // const payload = {
-    //     //     name: "Cầm Tù",
-    //     //     // origin_name: "Esaret",
-    //     //     poster_url: "cam-tu-poster.jpg",
-    //     //     slug: "cam-tu",
-    //     //     thumb_url: "cam-tu-thumb.jpg",
-    //     //     year: 2022,
-    //     //     _id: "6404b7820fc1635bd467951c",
-    //     //     episode_current: "Tập 1",
-    //     //     episode_total: "Tập 2",
-    //     //     category: [{
-    //     //         id: "Test",
-    //     //         name: "Hành động",
-    //     //         slug: 'hanh-dong',
-    //     //     }],
-    //     // };
-    //     // UpdateMoviesAPI(payload, (res) => {
-    //     //     console.count("call");
-    //     // });
-    // }, [page]);
+  //     //===================== Update New Movie ===============
 
-    return <div className="h-[100vh] text-white text-[40px] mt-[100px]">{page}</div>;
+  //     getMoviePerPage(page.toString(), (data) => {
+  //         if (data) {
+  //             // setMovies(data)
+  //             console.log("getMoviePerPage", data);
+  //             setProcess((pre) => pre + 24);
+  //             data.forEach((item, index) => {
+  //                 getMovie(
+  //                     item.slug,
+  //                     (movie) => {
+  //                         const payload = {
+  //                             ...item,
+  //                             category: movie.movie.category,
+  //                             episode_current: movie.movie.episode_current,
+  //                             episode_total: movie.movie.episode_total,
+  //                             year: movie.movie.year,
+  //                             type: movie.movie.type,
+  //                             status: movie.movie.status,
+  //                             time: movie.movie.time,
+  //                             view: movie.movie.view,
+  //                             chieurap: movie.movie.chieurap,
+  //                             country: movie.movie.country,
+  //                             lang: movie.movie.lang,
+  //                         };
+  //                         console.log("payload", payload);
+  //                         UpdateMoviesAPI(
+  //                             payload,
+  //                             (res) => {
+  //                                 console.log("UpdateMoviesAPI", res);
+  //                                 if (!res) {
+  //                                     AddMovie(
+  //                                         payload,
+  //                                         (res) => {
+  //                                             console.log("AddMovie-" + page, res);
+  //                                             setSuccess((pre) => pre + 1);
+  //                                         },
+  //                                         undefined,
+  //                                         () => {
+  //                                             setErrorMovies((pre) => [...pre, item.slug]);
+  //                                         }
+  //                                     );
+  //                                 } else {
+  //                                     setSuccess((pre) => pre + 1);
+  //                                 }
+  //                             },
+  //                             undefined,
+  //                             () => {
+  //                                 setErrorMovies((pre) => [...pre, item.slug]);
+  //                             }
+  //                         );
+  //                     },
+  //                     undefined,
+  //                     () => {
+  //                         setErrorMovies((pre) => [...pre, item.slug]);
+  //                     }
+  //                 );
+  //             });
+  //             if (page < 200) {
+  //                 setPage((pre) => pre + 1);
+  //             }
+  //         }
+  //     });
+
+  //     // ======================== Update error movie
+  //     // updateErrorMovie(errorMovies);
+  // }, [page]);
+
+  const updateErrorMovie = (error_slug_list: string[]) => {
+    error_slug_list.forEach((slug: any, index) => {
+      getMovie(
+        slug,
+        (movie) => {
+          const payload = {
+            ...movie.movie,
+          };
+          console.log("getMovie", movie);
+          UpdateMoviesAPI(
+            payload,
+            (res) => {
+              console.log("UpdateMoviesAPI", res);
+              if (!res) {
+                AddMovie(
+                  payload,
+                  (res) => {
+                    console.log("AddMovie-" + page, res);
+                    setSuccess((pre) => pre + 1);
+                  },
+                  undefined,
+                  () => {
+                    setErrorMovies((pre) => [...pre, slug]);
+                  },
+                );
+              } else {
+                setSuccess((pre) => pre + 1);
+              }
+            },
+            undefined,
+            () => {
+              setErrorMovies((pre) => [...pre, slug]);
+            },
+          );
+        },
+        undefined,
+        () => {
+          setErrorMovies((pre) => [...pre, slug]);
+        },
+      );
+    });
+  };
+
+  useEffect(() => {
+    updateErrorMovie(["mat-tich-2026-phan-1"]);
+  }, []);
+  return (
+    <div className="h-[100vh] text-white text-[40px] mt-[100px]">
+      <div>Progress:{page}/1094</div>
+      <div>
+        success:{success}/{processPage}
+      </div>
+      {/* <div>Count:{count}</div> */}
+      <div>Error:{errorMovies.join(", ")}</div>
+    </div>
+  );
 };
 
 export default UpdateMovies;

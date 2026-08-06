@@ -1,31 +1,28 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
 import { Imovie } from "../../repositories/interface/movie";
 
 export interface IMovieSlice {
-    movie: Imovie,
-    status: string,
-    showSearch: boolean,
-    showCategory: boolean,
+    movie: Imovie;
+    status: string;
+    showSearch: boolean;
+    showCategory: boolean;
 }
 
 const movieSlice = createSlice({
-    name: 'movie',
+    name: "movie",
     initialState: {
         movie: {},
-        status: 'idle',
+        status: "idle",
         showSearch: false,
         showCategory: false,
-
     },
     reducers: {
         setShowSearch: (state, action) => {
-            state.showSearch = action.payload ;
+            state.showSearch = action.payload;
         },
         setShowCategory: (state, action) => {
             state.showCategory = action.payload;
-        }
-
+        },
     },
     // extraReducers: builder => {
     //     builder.addCase(getOrdersData.pending, (state, action) => {
@@ -36,11 +33,8 @@ const movieSlice = createSlice({
 
     //     })
     // },
-
-})
+});
 export default movieSlice;
-
-
 
 // export const getOrdersData = createAsyncThunk('Order/getOrders', async () => {
 //     const URL = "https://kstore-api.cyclic.app/orders"

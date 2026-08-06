@@ -12,7 +12,7 @@ import Loading from "./Loading";
 import { useWindowSize } from "../hook/useWindowSize";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-
+    
 export const StringToSlug = (string: string) => {
     return string
         .toLowerCase()
